@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forms</title>
+</head>
+<body>
+  <h1>Chapter-6</h1>
+
+  <form id="StuForm" novalidate>
+    <label for="name">Name</label><br />
+    <input type="text" id="name" name="name" required placeholder="Enter Full name" /><br /><br />
+
+    <label for="age">Age</label><br />
+    <input type="number" id="age" name="age" required placeholder="Enter Age" /><br /><br />
+
+    <label for="email">Email</label><br />
+    <input type="text" id="email" name="email" required placeholder="Enter mail id" /><br /><br />
+
+    <input type="submit" value="Submit" />
+  </form>
+
+  <script>
+    document.getElementById('StuForm').addEventListener('submit', function (e) {
+      const nameInput = document.getElementById('name');
+      const ageInput = document.getElementById('age');
+      const emailInput = document.getElementById('email');
+
+      const name = nameInput.value.trim();
+      const age = parseInt(ageInput.value.trim());
+      const email = emailInput.value.trim();
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      const namePattern = /^[A-Za-z ]{3,}$/;
+
+      // Name validation: must be at least 3 letters, letters and spaces only
+      if (!namePattern.test(name)) {
+        alert("Name must be at least 3 characters and only contain letters.");
+        nameInput.focus();
+        e.preventDefault();
+        return;
+      }
+
+      // Age validation
+      if (isNaN(age) || age < 1 || age > 120) {
+        alert("Please enter a valid age between 1 and 120.");
+        ageInput.focus();
+        e.preventDefault();
+        return;
+      }
+
+      // Email validation
+      if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        emailInput.focus();
+        e.preventDefault();
+        return;
+      }
+
+      // Optional: alert success
+      alert("Form submitted successfully!");
+    });
+  </script>
+</body>
+</html>
